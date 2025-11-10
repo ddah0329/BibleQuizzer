@@ -9,6 +9,7 @@ const tableCategoryMap = {
   [import.meta.env.VITE_NEW_MC]: "신약 4지선다형",
   [import.meta.env.VITE_OLD_SA]: "구약 단답형",
   [import.meta.env.VITE_NEW_SA]: "신약 단답형",
+  [import.meta.env.VITE_TeukGang_SA]: "특강 단답형 연습"
 };
 
 export const fetchTable = async (tableId) => {
