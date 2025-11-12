@@ -1,25 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Practice from "./pages/Practice";
-import MockExam from "./pages/MockExam";
+import Result from "./pages/Result";
 
-function App() {
+export default function App() {
   return (
-    <Router>
+    <div className="min-h-screen bg-gray-50">
       <Routes>
         <Route path="/" element={<Home />} />
-
-        {/* 연습하기 모드 */}
-        <Route path="/practice" element={<Practice />} />
-
-        {/* 특강문제 연습하기 모드 */}
-        <Route path="/practice/teukgang" element={<Practice />} />
-
-        {/* 모의고사 모드 */}
-        <Route path="/mockexam" element={<MockExam />} />
+        <Route path="/practice/:mode" element={<Practice />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
-    </Router>
+    </div>
   );
 }
-
-export default App;
