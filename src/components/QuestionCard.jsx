@@ -49,7 +49,7 @@ export default function QuestionCard({ question, onNext }) {
               disabled={showAnswer}
               className={`py-2 px-4 rounded border
                 ${selected === opt ? "bg-[#5FA8D3)] text-white" : "bg-[hsl(4,100%,95%)]"}
-                hover:bg-[hsl(4,90%,70%)]`}
+                hover:bg-[hsl(4,90%,80%)]`}
             >
               {opt}
             </button>
