@@ -12,25 +12,26 @@ export default function Home() {
         { name: "신약 객관식", path: "/practice/2025_new_mc" },
         { name: "구약 빈칸", path: "/practice/2025_old_sa" },
         { name: "신약 빈칸", path: "/practice/2025_new_sa" },
+        { name: "실제 모의고사", path: "/practice2025", description: "90문제 : 구약 45 (4지선다 40 + 단답 5) + 신약 45 (4지선다 40 + 단답 5)" },
       ],
     },
     {
       title: "일반 모의고사 모드",
       description: "실제 모의고사 / 구약 모의고사 / 신약 모의고사",
       buttons: [
-        { name: "전체 모의고사", path: "/practice/full_exam" },
-        { name: "구약 모의고사", path: "/practice/old_exam" },
-        { name: "신약 모의고사", path: "/practice/new_exam" },
+        { name: "전체 모의고사", path: "/practice/full_exam", description: "90문제 : 구약 45 (4지선다 40 + 단답 5) + 신약 45 (4지선다 40 + 단답 5)" },
+        { name: "구약 모의고사", path: "/practice/old_exam", description: "45문제 : 구약 (4지선다 40 + 단답 5)" },
+        { name: "신약 모의고사", path: "/practice/new_exam", description: "45문제 : 신약 (4지선다 40 + 단답 5)" },
       ],
     },
     {
       title: "연습하기 모드",
-      description: "구약/신약 객관식 + 단답형 랜덤 10문제",
+      description: "랜덤 10문제",
       buttons: [
-        { name: "구약 객관식 연습", path: "/practice/old_mc_practice" },
-        { name: "구약 단답형 연습", path: "/practice/old_sa_practice" },
-        { name: "신약 객관식 연습", path: "/practice/new_mc_practice" },
-        { name: "신약 단답형 연습", path: "/practice/new_sa_practice" },
+        { name: "구약 객관식 랜덤 10문제", path: "/practice/old_mc_practice" },
+        { name: "구약 단답형 랜덤 10문제", path: "/practice/old_sa_practice" },
+        { name: "신약 객관식 랜덤 10문제", path: "/practice/new_mc_practice" },
+        { name: "신약 단답형 랜덤 10문제", path: "/practice/new_sa_practice" },
       ],
     },
   ];
@@ -43,14 +44,15 @@ export default function Home() {
           <div key={mode.title} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer">
             <h2 className="text-xl font-semibold mb-2">{mode.title}</h2>
             <p className="text-gray-500 mb-4">{mode.description}</p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {mode.buttons.map((btn) => (
                 <button
                   key={btn.name}
                   onClick={() => navigate(btn.path)}
-                  className="bg-[hsl(4,100%,95%)] hover:bg-[hsl(4,100%,80%)] text-black py-2 px-4 rounded"
+                  className="bg-[hsl(4,100%,95%)] hover:bg-[hsl(4,100%,80%)] text-black py-3 px-4 rounded flex flex-col items-start"
                 >
-                  {btn.name}
+                  <span className="font-semibold">{btn.name}</span>
+                  <span className="text-gray-400 text-xs mt-1">{btn.description}</span>
                 </button>
               ))}
             </div>
