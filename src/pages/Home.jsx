@@ -48,7 +48,7 @@ export default function Home() {
                 <button
                   key={btn.name}
                   onClick={() => navigate(btn.path)}
-                  className="bg-[hsl(4,100%,95%)] hover:bg-[hsl(4,100%,70%)] text-black py-2 px-4 rounded"
+                  className="bg-[hsl(4,100%,95%)] hover:bg-[hsl(4,100%,80%)] text-black py-2 px-4 rounded"
                 >
                   {btn.name}
                 </button>
