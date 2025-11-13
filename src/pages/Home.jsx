@@ -1,64 +1,101 @@
-import { useNavigate } from "react-router-dom";
+// src/pages/Home.jsx
+import { useNavigate } from 'react-router-dom';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
+// 퀴즈 섹션 데이터
+const quizSections = [
+  {
+    title: "구약 객관식",
+    description: "랜덤 10문제",
+    config: {
+      type: "simple",
+      tables: [
+        { id: import.meta.env.VITE_OLD_MC, count: 10, category: "구약", type: "mc" },
+      ],
+      totalQuestions: 10,
+    },
+  },
+  {
+    title: "구약 단답형",
+    description: "랜덤 10문제",
+    config: {
+      type: "simple",
+      tables: [
+        { id: import.meta.env.VITE_OLD_SA, count: 10, category: "구약", type: "sa" },
+      ],
+      totalQuestions: 10,
+    },
+  },
+  {
+    title: "신약 객관식",
+    description: "랜덤 10문제",
+    config: {
+      type: "simple",
+      tables: [
+        { id: import.meta.env.VITE_NEW_MC, count: 10, category: "신약", type: "mc" },
+      ],
+      totalQuestions: 10,
+    },
+  },
+  {
+    title: "신약 단답형",
+    description: "랜덤 10문제",
+    config: {
+      type: "simple",
+      tables: [
+        { id: import.meta.env.VITE_NEW_SA, count: 10, category: "신약", type: "sa" },
+      ],
+      totalQuestions: 10,
+    },
+  },
+  {
+    title: "모의고사 (90문제)",
+    description: "구약 45 (4지선다 40 + 단답 5) + 신약 45 (4지선다 40 + 단답 5)",
+    config: {
+      type: "mock_exam",
+      tables: [
+        { id: import.meta.env.VITE_OLD_MC, count: 40, category: "구약", type: "mc" },
+        { id: import.meta.env.VITE_NEW_MC, count: 40, category: "신약", type: "mc" },
+        { id: import.meta.env.VITE_OLD_SA, count: 5, category: "구약", type: "sa" },
+        { id: import.meta.env.VITE_NEW_SA, count: 5, category: "신약", type: "sa" },
+      ],
+      totalQuestions: 90,
+    },
+  },
+];
 
 export default function Home() {
   const navigate = useNavigate();
 
-  const modes = [
-    {
-      title: "2025 2학기 전용 모드",
-      description: "2025 구약/신약 객관식 + 빈칸 문제",
-      buttons: [
-        { name: "구약 객관식", path: "/practice/2025_old_mc" },
-        { name: "신약 객관식", path: "/practice/2025_new_mc" },
-        { name: "구약 빈칸", path: "/practice/2025_old_sa" },
-        { name: "신약 빈칸", path: "/practice/2025_new_sa" },
-        { name: "실제 모의고사", path: "/practice2025", description: "90문제 : 구약 45 (4지선다 40 + 단답 5) + 신약 45 (4지선다 40 + 단답 5)" },
-      ],
-    },
-    {
-      title: "일반 모의고사 모드",
-      description: "실제 모의고사 / 구약 모의고사 / 신약 모의고사",
-      buttons: [
-        { name: "전체 모의고사", path: "/practice/full_exam", description: "90문제 : 구약 45 (4지선다 40 + 단답 5) + 신약 45 (4지선다 40 + 단답 5)" },
-        { name: "구약 모의고사", path: "/practice/old_exam", description: "45문제 : 구약 (4지선다 40 + 단답 5)" },
-        { name: "신약 모의고사", path: "/practice/new_exam", description: "45문제 : 신약 (4지선다 40 + 단답 5)" },
-      ],
-    },
-    {
-      title: "연습하기 모드",
-      description: "랜덤 10문제",
-      buttons: [
-        { name: "구약 객관식 랜덤 10문제", path: "/practice/old_mc_practice" },
-        { name: "구약 단답형 랜덤 10문제", path: "/practice/old_sa_practice" },
-        { name: "신약 객관식 랜덤 10문제", path: "/practice/new_mc_practice" },
-        { name: "신약 단답형 랜덤 10문제", path: "/practice/new_sa_practice" },
-      ],
-    },
-  ];
+  const startQuiz = (config) => {
+    // Quiz 페이지로 퀴즈 설정(config)을 state로 전달
+    navigate('/quiz', { state: { quizConfig: config } });
+  };
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-center mb-8">성경 퀴즈 앱 📖</h1>
-      <div className="grid gap-8 md:grid-cols-3">
-        {modes.map((mode) => (
-          <div key={mode.title} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer">
-            <h2 className="text-xl font-semibold mb-2">{mode.title}</h2>
-            <p className="text-gray-500 mb-4">{mode.description}</p>
-            <div className="flex flex-col gap-4">
-              {mode.buttons.map((btn) => (
-                <button
-                  key={btn.name}
-                  onClick={() => navigate(btn.path)}
-                  className="bg-[hsl(4,100%,95%)] hover:bg-[hsl(4,100%,80%)] text-black py-3 px-4 rounded flex flex-col items-start"
-                >
-                  <span className="font-semibold">{btn.name}</span>
-                  <span className="text-gray-400 text-xs mt-1">{btn.description}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+    <div className="flex flex-col p-4 pt-8">
+      <header className="mb-6 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">BibleQuizzzer</h1>
+        <p className="text-muted-foreground">퀴즈를 선택하여 시작하세요.</p>
+      </header>
+      
+      <main className="space-y-4">
+        {quizSections.map((section) => (
+          <Card key={section.title}>
+            <CardHeader>
+              <CardTitle>{section.title}</CardTitle>
+              <CardDescription>{section.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full" onClick={() => startQuiz(section.config)}>
+                퀴즈 시작 <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </CardContent>
+          </Card>
         ))}
-      </div>
+      </main>
     </div>
   );
 }
